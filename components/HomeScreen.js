@@ -2,15 +2,19 @@ import React from 'react';
 import {Text, View, Pressable} from 'react-native';
 import {styles} from './styles';
 
-//tickets = tickets.filter(t=>t.imgsrc);
+let tickets = require('../assets/tickets.json');
 
-const tickets = require('../assets/tickets.json');
-
-function Random30() {
+function Random30(categorisedTickets) {
   const result = [];
-  for (let i = 0; i < 3; i++) {
-    const randomIndex = Math.floor(Math.random() * tickets.length);
-    result.push(tickets[randomIndex]);
+  const randomNs = [];
+  while (randomNs.length < 30) {
+    let r = Math.floor(Math.random() * categorisedTickets.length);
+    if (randomNs.indexOf(r) === -1) {
+      randomNs.push(r);
+    }
+  }
+  for (let i = 0; i < 30; i++) {
+    result.push(categorisedTickets[randomNs[i]]);
   }
   return result;
 }

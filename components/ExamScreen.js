@@ -10,6 +10,7 @@ import {
 import IconQuestion from '../assets/icon_question';
 import {Answers} from './Answers';
 import Description from './Description';
+import DynamicImage from './DynamicImage';
 import {styles} from './styles';
 
 export function ExamScreen({route, navigation}) {
@@ -39,11 +40,16 @@ export function ExamScreen({route, navigation}) {
         flex: 1,
         justifyContent: 'space-between',
         paddingBottom: 10,
+        backgroundColor: 'rgba(251, 252, 254, 1)',
       }}>
-      <View>
+      <View style={{alignItems: 'center'}}>
         {ticket.imgsrc && (
           //Question image
-          <Image source={{uri: ticket.imgsrc}} style={styles.image} />
+          <DynamicImage
+            source={{uri: ticket.imgsrc}}
+            padding={10}
+            style={styles.image}
+          />
         )}
         <Text style={styles.question}>{ticket.question}</Text>
         <Answers
@@ -57,10 +63,12 @@ export function ExamScreen({route, navigation}) {
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
         <Pressable
-          style={styles.button}
+          style={[styles.button, {backgroundColor: 'rgba(251, 252, 254, 1)'}]}
           hitSlop={{bottom: 10, left: 10, top: 10}}
           onPress={() => navigation.navigate('Главное меню')}>
-          <Text style={styles.buttonText}>В главное меню</Text>
+          <Text style={[styles.buttonText, {color: 'rgba(0, 102, 132, 1)'}]}>
+            В главное меню
+          </Text>
         </Pressable>
         <Pressable
           style={styles.button}

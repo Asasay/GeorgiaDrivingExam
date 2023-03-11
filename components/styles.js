@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgba(251, 252, 254, 1)',
   },
   container: {
     height: '100%',
@@ -42,7 +43,7 @@ export const styles = StyleSheet.create({
     marginLeft: 15,
     fontFamily: 'Roboto-Regular',
     fontSize: 14,
-    fontWeight: '400',
+    fontWeight: '500',
     letterSpacing: 0.25,
     lineHeight: 20,
   },
@@ -53,11 +54,8 @@ export const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 137, 125, 1)',
   },
   image: {
-    width: '100%',
-    height: 220,
-    borderRadius: 20,
     overflow: 'hidden',
-    resizeMode: 'contain',
+    borderRadius: 20,
   },
   button: {
     margin: 5,
@@ -68,8 +66,15 @@ export const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontFamily: 'Roboto-Black',
+    fontFamily: 'Roboto-Medium',
     fontSize: 14,
     fontWeight: '500',
+  },
+  loadingIndicator: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
   },
 });

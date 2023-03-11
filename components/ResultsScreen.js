@@ -14,10 +14,10 @@ export function ResultsScreen({route, navigation}) {
       onBackPress,
     );
     return () => subscription.remove();
-  }, []);
+  });
 
   return (
-    <View style={[styles.centeredContainer, {}]}>
+    <View style={[styles.centeredContainer]}>
       <Text style={{color: '#006684', fontFamily: 'Roboto'}}>
         Правильных ответов: {route.params.rights}
       </Text>
