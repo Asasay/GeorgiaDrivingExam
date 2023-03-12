@@ -12,9 +12,7 @@
 
 ### Project info
 
-
-Main objective of this project was to have a single code base for both 
-web and mobile apps with the logic and view separated.
+I made this application to make it easier for Russian speaking people to prepare for the driver's license exam in Georgia.
 
 #### Project Structure
 
