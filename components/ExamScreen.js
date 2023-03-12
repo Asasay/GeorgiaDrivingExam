@@ -32,7 +32,7 @@ export function ExamScreen({route, navigation}) {
         </Pressable>
       ),
     });
-  }, [navigation, currentTicket, tickets]);
+  }, []);
 
   return (
     <View
