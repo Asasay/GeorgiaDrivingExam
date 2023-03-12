@@ -19,8 +19,8 @@ I made this application to make it easier for Russian speaking people to prepare
 ```
     /android                - React native android source code
 
-App.js                  - App Root component
-    /components         - react native components    
+App.js                      - App Root component
+    /components             - react native components    
     /assets                 - contains icons and fonts
     /ios                    - React native ios source code
     
