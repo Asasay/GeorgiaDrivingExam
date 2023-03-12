@@ -35,14 +35,14 @@ export function ExamScreen({route, navigation}) {
   }, [navigation, currentTicket, tickets]);
 
   return (
-    <ScrollView
-      contentContainerStyle={{
+    <View
+      style={{
         flex: 1,
         justifyContent: 'space-between',
         paddingBottom: 10,
         backgroundColor: 'rgba(251, 252, 254, 1)',
       }}>
-      <View style={{alignItems: 'center'}}>
+      <ScrollView contentContainerStyle={{alignItems: 'center'}}>
         {ticket.imgsrc && (
           //Question image
           <DynamicImage
@@ -60,7 +60,7 @@ export function ExamScreen({route, navigation}) {
           setRights={setRights}
           setWrongs={setWrongs}
         />
-      </View>
+      </ScrollView>
       <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
         <Pressable
           style={[styles.button, {backgroundColor: 'rgba(251, 252, 254, 1)'}]}
@@ -96,6 +96,6 @@ export function ExamScreen({route, navigation}) {
         description={ticket.description}
       />
       {modalVisible && <StatusBar backgroundColor={'rgba(0, 10, 13, 0.4)'} />}
-    </ScrollView>
+    </View>
   );
 }
