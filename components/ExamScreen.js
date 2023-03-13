@@ -1,12 +1,5 @@
 import {useEffect, useState, React} from 'react';
-import {
-  Image,
-  Text,
-  Pressable,
-  View,
-  ScrollView,
-  StatusBar,
-} from 'react-native';
+import {Text, Pressable, View, ScrollView, StatusBar} from 'react-native';
 import IconQuestion from '../assets/icon_question';
 import {Answers} from './Answers';
 import Description from './Description';

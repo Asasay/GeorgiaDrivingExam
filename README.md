@@ -1,7 +1,5 @@
 # Georgia-Driving-Exam
 
-### Snack Preview: [link](https://snack.expo.dev/@asasay/a7b5e8?platform=android)
-
 ### Installation
 
 - run `npm install` or `yarn install`
