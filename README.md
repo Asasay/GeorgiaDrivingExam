@@ -5,6 +5,10 @@
     <img src="https://user-images.githubusercontent.com/4892356/224990242-7633410b-e6b9-4438-b839-5336979a3fc8.png" width="20%" height="20%"/>
 </div>
 
+### Prerequisite
+
+- https://reactnative.dev/docs/environment-setup
+
 ### Installation
 
 - run `npm install` or `yarn install`
