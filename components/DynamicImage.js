@@ -11,14 +11,18 @@ export default function DynamicImage(props) {
   const [isLoading, setIsLoading] = React.useState(false);
   const wwidth = useWindowDimensions().width;
 
-  const setImageRealSize = ({width, height}) => {
+  const setImageRealSize = (width, height) => {
     const scaleFactor = width / (wwidth - props.padding * 2);
     setImageSize({width: width / scaleFactor, height: height / scaleFactor});
   };
 
+  React.useEffect(() => {
+    Image.getSize(props.source.uri, (w, h) => setImageRealSize(w, h));
+  }, [props.source.uri]);
+
   return (
     <View>
-      {isLoading ? (
+      {isLoading && (
         <View style={{position: 'absolute', left: 0, right: 0, top: 100}}>
           <ActivityIndicator
             animating={isLoading}
@@ -26,21 +30,14 @@ export default function DynamicImage(props) {
             color="hsba(203, 6%, 91%, 1)"
           />
         </View>
-      ) : null}
+      )}
       <Image
         source={props.source}
         style={[props.style, imageSize]}
-        onLoad={({
-          nativeEvent: {
-            source: {width, height},
-          },
-        }) => {
-          setImageRealSize({width, height});
-        }}
         onLoadStart={() => {
           setIsLoading(true);
         }}
-        onLoadEnd={() => {
+        onLoad={e => {
           setIsLoading(false);
         }}
       />
