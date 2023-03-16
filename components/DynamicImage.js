@@ -1,46 +1,28 @@
 import * as React from 'react';
-import {
-  ActivityIndicator,
-  Image,
-  useWindowDimensions,
-  View,
-} from 'react-native';
+import {Image, useWindowDimensions} from 'react-native';
+import ImageZoom from '@synconset/react-native-image-zoom';
 
 export default function DynamicImage(props) {
   const [imageSize, setImageSize] = React.useState({width: 0, height: 0});
-  const [isLoading, setIsLoading] = React.useState(false);
-  const wwidth = useWindowDimensions().width;
-
-  const setImageRealSize = (width, height) => {
-    const scaleFactor = width / (wwidth - props.padding * 2);
-    setImageSize({width: width / scaleFactor, height: height / scaleFactor});
-  };
+  const {width: windowWidth, height: windowHeight} = useWindowDimensions();
 
   React.useEffect(() => {
-    Image.getSize(props.source.uri, (w, h) => setImageRealSize(w, h));
-  }, [props.source.uri]);
+    const imageOrig = Image.resolveAssetSource(props.source);
+    const scaleFactor = imageOrig.width / (windowWidth - props.padding * 2);
+    setImageSize({
+      width: imageOrig.width / scaleFactor,
+      height: imageOrig.height / scaleFactor,
+    });
+  }, [props.source]);
 
   return (
-    <View>
-      {isLoading && (
-        <View style={{position: 'absolute', left: 0, right: 0, top: 100}}>
-          <ActivityIndicator
-            animating={isLoading}
-            size="large"
-            color="hsba(203, 6%, 91%, 1)"
-          />
-        </View>
-      )}
-      <Image
-        source={props.source}
-        style={[props.style, imageSize]}
-        onLoadStart={() => {
-          setIsLoading(true);
-        }}
-        onLoad={e => {
-          setIsLoading(false);
-        }}
-      />
-    </View>
+    <ImageZoom
+      cropWidth={windowWidth}
+      cropHeight={imageSize.height}
+      imageWidth={imageSize.width}
+      imageHeight={imageSize.height}
+      minScale={1}>
+      <Image source={props.source} style={[props.style, imageSize]} />
+    </ImageZoom>
   );
 }
