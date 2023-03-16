@@ -1,12 +1,5 @@
 import {useEffect, useState, React} from 'react';
-import {
-  Text,
-  Pressable,
-  View,
-  ScrollView,
-  StatusBar,
-  Image,
-} from 'react-native';
+import {Text, Pressable, View, ScrollView, StatusBar} from 'react-native';
 import IconQuestion from '../assets/icon_question';
 import {Answers} from './Answers';
 import Description from './Description';
@@ -32,10 +25,6 @@ export function ExamScreen({route, navigation}) {
         </Pressable>
       ),
     });
-
-    tickets[currentTicket + 1] &&
-      tickets[currentTicket + 1].imgsrc &&
-      Image.prefetch(tickets[currentTicket + 1].imgsrc);
   }, [currentTicket]);
 
   return (
@@ -50,7 +39,7 @@ export function ExamScreen({route, navigation}) {
         {ticket.imgsrc && (
           //Question image
           <DynamicImage
-            source={{uri: ticket.imgsrc}}
+            source={ticket.imgsrc}
             padding={10}
             style={styles.image}
           />

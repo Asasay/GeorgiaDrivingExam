@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View, Pressable} from 'react-native';
 import {styles} from './styles';
 
-let tickets = require('../assets/tickets.json');
+import {tickets} from '../assets/tickets.js';
 
 function Random30(categorisedTickets) {
   const result = [];
