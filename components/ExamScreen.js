@@ -8,7 +8,7 @@ import {styles} from './styles';
 
 export function ExamScreen({route, navigation}) {
   const [currentTicket, setCurrentTicket] = useState(0);
-  const [ansPicked, setAnsPicked] = useState('');
+  const [ansPicked, setAnsPicked] = useState(null);
   const [rights, setRights] = useState(0);
   const [wrongs, setWrongs] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
@@ -67,10 +67,10 @@ export function ExamScreen({route, navigation}) {
           style={styles.button}
           hitSlop={{bottom: 10, left: 10, right: 10, top: 50}}
           onPress={() => {
-            if (!ansPicked) {
+            if (ansPicked === null) {
               return;
             }
-            setAnsPicked('');
+            setAnsPicked(null);
             if (currentTicket === tickets.length - 1) {
               navigation.navigate('Результаты', {
                 rights,

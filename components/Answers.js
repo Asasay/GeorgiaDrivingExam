@@ -13,20 +13,20 @@ export function Answers({
   setWrongs,
 }) {
   let getStyle = i => {
-    if (ansPicked && rightAnswer != ansPicked) {
-      if (rightAnswer == i) {
-        return [styles.answer, styles.bgGreen];
-      }
-      if (ansPicked == i) {
-        return [styles.answer, styles.bgRed];
-      }
-    } else if (ansPicked && rightAnswer == ansPicked) {
-      if (rightAnswer == i) {
-        return [styles.answer, styles.bgGreen];
-      }
+    if (ansPicked === null) {
+      return [styles.answer];
     }
-    return styles.answer;
+
+    const isRightAnswer = rightAnswer === i;
+    const isWrongAnswer = ansPicked === i && i !== rightAnswer;
+
+    return [
+      styles.answer,
+      isRightAnswer && styles.bgGreen,
+      isWrongAnswer && styles.bgRed,
+    ].filter(Boolean);
   };
+
   return (
     <View style={styles.answersContainer}>
       {answers.map((a, i) => (
@@ -34,8 +34,8 @@ export function Answers({
           style={() => getStyle(i)}
           key={i}
           onPress={() => {
-            if (!ansPicked) {
-              setAnsPicked(i.toString());
+            if (ansPicked === null) {
+              setAnsPicked(i);
               i == rightAnswer ? setRights(s => s + 1) : setWrongs(s => s + 1);
             }
           }}>
