@@ -1,9 +1,12 @@
 import {useEffect} from 'react';
-import {BackHandler, StyleSheet, Text, View} from 'react-native';
+import {BackHandler, View} from 'react-native';
 import {styles} from './styles';
 import React from 'react';
+import {useTheme, Text, Divider} from 'react-native-paper';
 
 export function ResultsScreen({route, navigation}) {
+  const theme = useTheme();
+
   useEffect(() => {
     const onBackPress = () => {
       navigation.popToTop();
@@ -17,28 +20,19 @@ export function ResultsScreen({route, navigation}) {
   });
 
   return (
-    <View style={[styles.centeredContainer]}>
-      <Text style={{color: '#006684', fontFamily: 'Roboto'}}>
+    <View
+      style={[
+        styles.centeredContainer,
+        {backgroundColor: theme.colors.background},
+      ]}>
+      <Text variant="bodyMedium" style={{color: theme.colors.primary}}>
         Правильных ответов: {route.params.rights}
       </Text>
-      <Text style={{color: '#BA1A1A', fontFamily: 'Roboto'}}>
+      <Text variant="bodyMedium" style={{color: theme.colors.error}}>
         Неправильных ответов: {route.params.wrongs}
       </Text>
-      <View
-        style={{
-          width: '60%',
-          marginVertical: 10,
-          borderBottomColor: 'black',
-          borderBottomWidth: StyleSheet.hairlineWidth,
-        }}
-      />
-      <Text
-        style={{
-          width: '60%',
-          textAlign: 'center',
-          fontFamily: 'Roboto-Regular',
-          color: 'black',
-        }}>
+      <Divider style={{marginVertical: 10, width: '50%'}} />
+      <Text variant="bodyMedium">
         {route.params.wrongs > 3
           ? 'Вы не сдали экзамен. Попробуйте попрактиковаться еще.'
           : 'Экзамен сдан!'}

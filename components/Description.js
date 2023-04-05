@@ -1,34 +1,38 @@
-import {Modal, Text, Pressable, View, ScrollView} from 'react-native';
-import {styles} from './styles';
+import {IconButton, Modal, Portal, Text, useTheme} from 'react-native-paper';
 import React from 'react';
+import {ScrollView} from 'react-native';
 
-const Description = ({modalVisible, setModalVisible, description}) => {
+const Description = ({description}) => {
+  const [visible, setVisible] = React.useState(false);
+  const theme = useTheme();
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+
   return (
-    <Modal
-      animationType="fade"
-      transparent={true}
-      visible={modalVisible}
-      onRequestClose={() => {
-        setModalVisible(!modalVisible);
-      }}>
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          justifyContent: 'center',
-          backgroundColor: 'rgba(0, 10, 13, 0.4)',
-        }}>
-        <View style={styles.modalView}>
-          <Text style={[styles.answerText, {color: 'rgba(64, 72, 76, 1)'}]}>
-            {description}
-          </Text>
-          <Pressable
-            style={[styles.button, {marginTop: 20, marginBottom: 0}]}
-            onPress={() => setModalVisible(!modalVisible)}>
-            <Text style={styles.buttonText}>Закрыть</Text>
-          </Pressable>
-        </View>
-      </ScrollView>
-    </Modal>
+    <>
+      <Portal>
+        <Modal
+          visible={visible}
+          onDismiss={hideModal}
+          style={{marginHorizontal: 20}}
+          contentContainerStyle={{
+            backgroundColor: theme.colors.surface,
+            paddingHorizontal: 20,
+            paddingVertical: 10,
+            borderRadius: 10,
+          }}>
+          <ScrollView>
+            <Text
+              style={{
+                fontSize: 16,
+              }}>
+              {description ? description : 'К этому билету нет описания'}
+            </Text>
+          </ScrollView>
+        </Modal>
+      </Portal>
+      <IconButton onPress={showModal} icon="help-circle-outline" />
+    </>
   );
 };
 

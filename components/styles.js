@@ -5,20 +5,10 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(251, 252, 254, 1)',
   },
   container: {
     height: '100%',
     width: '100%',
-    backgroundColor: 'white',
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: '#DEECF1',
-    borderRadius: 20,
-    padding: 24,
-    alignItems: 'center',
-    elevation: 5,
   },
   question: {
     width: '100%',
@@ -36,7 +26,6 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 3,
     padding: 10,
-    backgroundColor: 'rgba(0, 102, 132, 0.08)',
   },
   answerText: {
     flex: 1,
@@ -62,10 +51,8 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 24,
     borderRadius: 20,
-    backgroundColor: '#006684',
   },
   buttonText: {
-    color: 'white',
     fontFamily: 'Roboto-Medium',
     fontSize: 14,
     fontWeight: '500',

@@ -1,6 +1,6 @@
 import {useEffect, useState, React} from 'react';
-import {Text, Pressable, View, ScrollView, StatusBar} from 'react-native';
-import IconQuestion from '../assets/icon_question';
+import {View, ScrollView} from 'react-native';
+import {Button, Text, useTheme} from 'react-native-paper';
 import {Answers} from './Answers';
 import Description from './Description';
 import DynamicImage from './DynamicImage';
@@ -11,7 +11,7 @@ export function ExamScreen({route, navigation}) {
   const [ansPicked, setAnsPicked] = useState(null);
   const [rights, setRights] = useState(0);
   const [wrongs, setWrongs] = useState(0);
-  const [modalVisible, setModalVisible] = useState(false);
+  const theme = useTheme();
 
   const tickets = route.params.tickets;
   let ticket = tickets[currentTicket];
@@ -19,13 +19,9 @@ export function ExamScreen({route, navigation}) {
   useEffect(() => {
     navigation.setOptions({
       headerTitle: '№' + tickets[currentTicket].num,
-      headerRight: () => (
-        <Pressable onPress={() => setModalVisible(true)}>
-          <IconQuestion />
-        </Pressable>
-      ),
+      right: <Description description={ticket.description} />,
     });
-  }, [currentTicket]);
+  }, [currentTicket, navigation, ticket.description, tickets]);
 
   return (
     <View
@@ -33,7 +29,7 @@ export function ExamScreen({route, navigation}) {
         flex: 1,
         justifyContent: 'space-between',
         paddingBottom: 10,
-        backgroundColor: 'rgba(251, 252, 254, 1)',
+        backgroundColor: theme.colors.background,
       }}>
       <ScrollView contentContainerStyle={{alignItems: 'center'}}>
         {ticket.imgsrc && (
@@ -55,17 +51,11 @@ export function ExamScreen({route, navigation}) {
         />
       </ScrollView>
       <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-        <Pressable
-          style={[styles.button, {backgroundColor: 'rgba(251, 252, 254, 1)'}]}
-          hitSlop={{bottom: 10, left: 10, top: 10}}
-          onPress={() => navigation.navigate('Главное меню')}>
-          <Text style={[styles.buttonText, {color: 'rgba(0, 102, 132, 1)'}]}>
-            В главное меню
-          </Text>
-        </Pressable>
-        <Pressable
-          style={styles.button}
-          hitSlop={{bottom: 10, left: 10, right: 10, top: 50}}
+        <Button onPress={() => navigation.navigate('Главное меню')}>
+          В главное меню
+        </Button>
+        <Button
+          mode="contained"
           onPress={() => {
             if (ansPicked === null) {
               return;
@@ -80,15 +70,9 @@ export function ExamScreen({route, navigation}) {
               setCurrentTicket(i => i + 1);
             }
           }}>
-          <Text style={styles.buttonText}>Следующий билет</Text>
-        </Pressable>
+          Следующий билет
+        </Button>
       </View>
-      <Description
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-        description={ticket.description}
-      />
-      {modalVisible && <StatusBar backgroundColor={'rgba(0, 10, 13, 0.4)'} />}
     </View>
   );
 }
