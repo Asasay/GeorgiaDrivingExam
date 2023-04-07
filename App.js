@@ -14,7 +14,22 @@ import {StatusBar, useColorScheme} from 'react-native';
 import React from 'react';
 import CustomNavigationBar from './components/CustomNavigationBar';
 import colors from './components/colors.json';
+import SQLite from 'react-native-sqlite-storage';
+
 const Stack = createNativeStackNavigator();
+
+global.db = SQLite.openDatabase(
+  {
+    name: 'bebrabank.db',
+    createFromLocation: '~bebrabank.db',
+  },
+  () => {
+    console.log('db connection success');
+  },
+  error => {
+    console.log('ERROR: ' + error);
+  },
+);
 
 export default function App() {
   const colorScheme = useColorScheme();

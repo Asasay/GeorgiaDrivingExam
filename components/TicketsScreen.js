@@ -4,6 +4,7 @@ import {
   Button,
   Dialog,
   HelperText,
+  IconButton,
   Portal,
   Text,
   TextInput,
@@ -19,7 +20,11 @@ export function TicketsScreen({route, navigation}) {
 
   const [currentTicket, setCurrentTicket] = useState(0);
   const [ansPicked, setAnsPicked] = useState(null);
+
   let ticket = tickets[currentTicket];
+  if (ticket.img !== null) {
+    ticket.imgsrc = {uri: `data:image/jpeg;base64,${ticket.img}`};
+  }
 
   const [visible, setVisible] = useState(false);
   const showDialog = () => setVisible(true);
@@ -48,8 +53,13 @@ export function TicketsScreen({route, navigation}) {
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: '№' + tickets[currentTicket].num,
-      right: <Description description={ticket.description} />,
+      headerTitle: '№' + tickets[currentTicket].id,
+      right: (
+        <>
+          <IconButton icon="star" />
+          <Description description={ticket.description} />
+        </>
+      ),
     });
   }, [currentTicket, navigation, ticket.description, tickets]);
 
@@ -80,7 +90,7 @@ export function TicketsScreen({route, navigation}) {
       </ScrollView>
       <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
         <Button onPress={showDialog}>
-          {tickets[currentTicket].num + '/' + tickets.length}
+          {tickets[currentTicket].id + '/' + tickets.length}
         </Button>
         <Portal>
           <Dialog visible={visible} onDismiss={hideDialog}>

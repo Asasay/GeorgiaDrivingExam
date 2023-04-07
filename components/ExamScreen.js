@@ -1,6 +1,6 @@
 import {useEffect, useState, React} from 'react';
 import {View, ScrollView} from 'react-native';
-import {Button, Text, useTheme} from 'react-native-paper';
+import {Button, IconButton, Text, useTheme} from 'react-native-paper';
 import {Answers} from './Answers';
 import Description from './Description';
 import DynamicImage from './DynamicImage';
@@ -15,11 +15,19 @@ export function ExamScreen({route, navigation}) {
 
   const tickets = route.params.tickets;
   let ticket = tickets[currentTicket];
+  if (ticket.img !== null) {
+    ticket.imgsrc = {uri: `data:image/jpeg;base64,${ticket.img}`};
+  }
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: '№' + tickets[currentTicket].num,
-      right: <Description description={ticket.description} />,
+      headerTitle: '№' + tickets[currentTicket].id,
+      right: (
+        <>
+          <IconButton icon="star" />
+          <Description description={ticket.description} />
+        </>
+      ),
     });
   }, [currentTicket, navigation, ticket.description, tickets]);
 
