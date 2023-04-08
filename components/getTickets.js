@@ -1,5 +1,4 @@
 import {tickets} from '../assets/tickets.js';
-import descriptions from '../assets/descriptions.json';
 import ticketsByCat from '../assets/ticketsByCat.json';
 import categories from '../assets/categories.json';
 
@@ -41,25 +40,26 @@ function randomExamTicketsIds(categorisedTickets, amount) {
 export const getTickets = (cat, amount) => {
   const catId = categories.find(e => e.categoryName === cat).id;
 
-  const validExamTicketIds = ticketsByCat[catId].map(o => o.examTicketId);
+  const validExamTicketIds = Object.keys(ticketsByCat[catId]);
 
   const examTicketIds =
     amount === 'all'
       ? validExamTicketIds
       : randomExamTicketsIds(validExamTicketIds, amount);
 
+  let start = Date.now();
   let filteredTickets = tickets.filter(t =>
-    examTicketIds.includes(t.examTicketId),
+    examTicketIds.includes(t.examTicketId.toString()),
   );
 
   filteredTickets.forEach(t => {
-    t.description = descriptions.find(
-      e => e.examTicketId === t.examTicketId,
-    )?.description;
-    t.num = ticketsByCat[catId].find(e => e.examTicketId === t.examTicketId).id;
+    t.num = ticketsByCat[catId][t.examTicketId];
   });
   amount === 'all'
     ? filteredTickets.sort((a, b) => a.num - b.num)
     : shuffle(filteredTickets);
+
+  let timeTaken = Date.now() - start;
+  console.log('Total time taken : ' + timeTaken + ' milliseconds');
   return filteredTickets;
 };

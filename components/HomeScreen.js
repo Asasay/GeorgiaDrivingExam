@@ -33,7 +33,7 @@ export function HomeScreen({navigation}) {
             <Button
               icon="arrow-down-drop-circle-outline"
               onPress={openMenu}
-              style={{marginBottom: 5}}>
+              style={{marginBottom: 10}}>
               Категория: {selectedCategory}
             </Button>
           }>

@@ -15,7 +15,7 @@ import React from 'react';
 import CustomNavigationBar from './components/CustomNavigationBar';
 import colors from './components/colors.json';
 const Stack = createNativeStackNavigator();
-
+import {gestureHandlerRootHOC} from 'react-native-gesture-handler';
 export default function App() {
   const colorScheme = useColorScheme();
   const fontConfig = {
@@ -48,12 +48,12 @@ export default function App() {
           />
           <Stack.Screen
             name="Экзамен"
-            component={ExamScreen}
+            component={gestureHandlerRootHOC(ExamScreen)}
             options={{back: true}}
           />
           <Stack.Screen
             name="Все билеты"
-            component={TicketsScreen}
+            component={gestureHandlerRootHOC(TicketsScreen)}
             options={{back: true}}
           />
           <Stack.Screen
