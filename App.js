@@ -11,11 +11,13 @@ import {ExamScreen} from './components/ExamScreen';
 import {TicketsScreen} from './components/TicketsScreen';
 import {ResultsScreen} from './components/ResultsScreen';
 import {StatusBar, useColorScheme} from 'react-native';
-import React from 'react';
+import * as React from 'react';
 import CustomNavigationBar from './components/CustomNavigationBar';
 import colors from './components/colors.json';
-const Stack = createNativeStackNavigator();
 import {gestureHandlerRootHOC} from 'react-native-gesture-handler';
+
+const Stack = createNativeStackNavigator();
+
 export default function App() {
   const colorScheme = useColorScheme();
   const fontConfig = {
