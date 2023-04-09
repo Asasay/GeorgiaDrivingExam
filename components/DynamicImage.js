@@ -7,13 +7,20 @@ export default function DynamicImage(props) {
   const {width: windowWidth, height: windowHeight} = useWindowDimensions();
 
   React.useEffect(() => {
-    const imageOrig = Image.resolveAssetSource(props.source);
+    /* const imageOrig = Image.resolveAssetSource(props.source);
     const scaleFactor = imageOrig.width / (windowWidth - props.padding * 2);
     setImageSize({
       width: imageOrig.width / scaleFactor,
       height: imageOrig.height / scaleFactor,
+    }); */
+    Image.getSize(props.source.uri, (originalWidth, originalHeight) => {
+      const scaleFactor = originalWidth / (windowWidth - props.padding * 2);
+      setImageSize({
+        width: originalWidth / scaleFactor,
+        height: originalHeight / scaleFactor,
+      });
     });
-  }, [props.source]);
+  }, [props.padding, props.source, windowWidth]);
 
   return (
     <ImageZoom

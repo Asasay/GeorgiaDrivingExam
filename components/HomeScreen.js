@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View} from 'react-native';
 import {styles} from './styles';
 import {Button, useTheme, Menu} from 'react-native-paper';
-import {getTickets} from './getTickets';
+import {getRandomTickets, getTickets} from './dbHelper';
 
 export function HomeScreen({navigation}) {
   const [visible, setVisible] = React.useState(false);
   const [selectedCategory, setSelectedCategory] = React.useState('B, B1');
+  const [tickets, setTickets] = React.useState([]);
   const openMenu = () => setVisible(true);
   const closeMenu = () => setVisible(false);
   const theme = useTheme();
@@ -15,6 +16,10 @@ export function HomeScreen({navigation}) {
     setSelectedCategory(cat);
     closeMenu();
   };
+
+  useEffect(() => {
+    getTickets(selectedCategory, setTickets);
+  }, [selectedCategory]);
 
   return (
     <View
@@ -51,19 +56,19 @@ export function HomeScreen({navigation}) {
         <Button
           style={{marginBottom: 10}}
           mode="contained"
+          disabled={tickets.length === 0}
           onPress={() => {
             navigation.navigate('Экзамен', {
-              tickets: getTickets(selectedCategory, 30),
+              tickets: getRandomTickets(tickets, 3),
             });
           }}>
           Начать экзамен
         </Button>
         <Button
           mode="contained"
+          disabled={tickets.length === 0}
           onPress={() => {
-            navigation.navigate('Все билеты', {
-              tickets: getTickets(selectedCategory, 'all'),
-            });
+            navigation.navigate('Все билеты', {tickets: tickets});
           }}>
           Все билеты
         </Button>
