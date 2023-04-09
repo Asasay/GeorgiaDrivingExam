@@ -116,6 +116,7 @@ export function TicketsScreen({route, navigation}) {
                 <TextInput
                   autoFocus={true}
                   inputMode="numeric"
+                  onSubmitEditing={dialogSetTicket}
                   value={text}
                   onChangeText={t => setText(t)}
                 />

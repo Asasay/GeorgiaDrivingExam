@@ -41,7 +41,7 @@ export function ExamScreen({route, navigation}) {
 
   const gesture = Gesture.Pan()
     .onFinalize(e => {
-      if (e.velocityX < -1000) nextTicket();
+      if (e.velocityX < -1000 && e.translationX < -120) nextTicket();
     })
     .runOnJS(true);
 
@@ -74,11 +74,24 @@ export function ExamScreen({route, navigation}) {
           />
         </ScrollView>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Button
-            onPress={() => navigation.navigate('Главное меню')}
-            style={{marginLeft: '5%'}}>
-            В главное меню
-          </Button>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginLeft: '13%',
+            }}>
+            <Text variant="labelLarge" style={{color: theme.colors.primary}}>
+              {rights}
+            </Text>
+            <Text variant="labelLarge"> / </Text>
+            <Text variant="labelLarge" style={{color: theme.colors.error}}>
+              {wrongs}
+              {'   '}
+            </Text>
+            <Text variant="labelLarge">
+              {currentTicket + 1 + '/' + tickets.length}
+            </Text>
+          </View>
           <Button
             mode="contained"
             onPress={nextTicket}
