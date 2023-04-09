@@ -1,7 +1,12 @@
 import React from 'react';
 import {Appbar} from 'react-native-paper';
 
-export default function CustomNavigationBar({navigation, options, back}) {
+export default function CustomNavigationBar({
+  navigation,
+  options,
+  back,
+  right,
+}) {
   return (
     <Appbar.Header>
       {back ? <Appbar.BackAction onPress={navigation.popToTop} /> : null}
