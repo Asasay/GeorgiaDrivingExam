@@ -2,14 +2,36 @@ import React from 'react';
 import {View} from 'react-native';
 import {styles} from './styles';
 import {Button, useTheme, Menu} from 'react-native-paper';
-import {getTickets} from './getTickets';
+import {
+  getAllTickets,
+  getAmountTickets,
+  getFavoriteTickets,
+} from './getTickets';
+import {useIsFocused} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function HomeScreen({navigation}) {
+  const isFocused = useIsFocused();
+  const [favorites, setFavorites] = React.useState([]);
   const [visible, setVisible] = React.useState(false);
   const [selectedCategory, setSelectedCategory] = React.useState('B, B1');
   const openMenu = () => setVisible(true);
   const closeMenu = () => setVisible(false);
   const theme = useTheme();
+
+  React.useEffect(() => {
+    // Call only when screen open or when back on screen
+    if (isFocused) {
+      AsyncStorage.getItem('favorites')
+        .then(value => {
+          if (value === null) {
+            return [];
+          }
+          return JSON.parse(value);
+        })
+        .then(setFavorites);
+    }
+  }, [isFocused]);
 
   const pickCatergory = cat => {
     setSelectedCategory(cat);
@@ -53,19 +75,30 @@ export function HomeScreen({navigation}) {
           mode="contained"
           onPress={() => {
             navigation.navigate('Экзамен', {
-              tickets: getTickets(selectedCategory, 30),
+              tickets: getAmountTickets(selectedCategory, 30),
             });
           }}>
           Начать экзамен
         </Button>
         <Button
-          mode="contained"
+          style={{marginBottom: 10}}
+          mode="contained-tonal"
           onPress={() => {
             navigation.navigate('Все билеты', {
-              tickets: getTickets(selectedCategory, 'all'),
+              tickets: getAllTickets(selectedCategory),
             });
           }}>
           Все билеты
+        </Button>
+        <Button
+          mode="contained-tonal"
+          disabled={favorites.length === 0}
+          onPress={() => {
+            navigation.navigate('Избранные', {
+              tickets: getFavoriteTickets(favorites),
+            });
+          }}>
+          Избранные
         </Button>
       </View>
     </View>

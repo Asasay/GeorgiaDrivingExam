@@ -14,6 +14,7 @@ import Description from './Description';
 import DynamicImage from './DynamicImage';
 import {styles} from './styles';
 import {GestureDetector, Gesture} from 'react-native-gesture-handler';
+import Favorites from './Favorites';
 
 export function TicketsScreen({route, navigation}) {
   const tickets = route.params.tickets;
@@ -68,14 +69,23 @@ export function TicketsScreen({route, navigation}) {
   useEffect(() => {
     navigation.setOptions({
       headerTitle: '№' + tickets[currentTicket].num,
-      right: <Description description={ticket.description} />,
+      right: (
+        <>
+          <Favorites examTicketId={ticket.examTicketId} />
+          <Description description={ticket.description} />
+        </>
+      ),
     });
   }, [currentTicket, navigation, ticket.description, tickets]);
 
   const gesture = Gesture.Pan()
     .onFinalize(e => {
-      if (e.velocityX < -1000 && e.translationX < -120) nextTicket();
-      if (e.velocityX > 1000 && e.translationX > 120) prevTicket();
+      if (e.velocityX < -1000 && e.translationX < -120) {
+        nextTicket();
+      }
+      if (e.velocityX > 1000 && e.translationX > 120) {
+        prevTicket();
+      }
     })
     .runOnJS(true);
 

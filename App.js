@@ -59,6 +59,11 @@ export default function App() {
             options={{back: true}}
           />
           <Stack.Screen
+            name="Избранные"
+            component={gestureHandlerRootHOC(TicketsScreen)}
+            options={{back: true}}
+          />
+          <Stack.Screen
             name="Результаты"
             component={ResultsScreen}
             options={{back: true}}

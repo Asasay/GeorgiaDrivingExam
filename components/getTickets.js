@@ -1,6 +1,7 @@
 import {tickets} from '../assets/tickets.js';
 import ticketsByCat from '../assets/ticketsByCat.json';
 import categories from '../assets/categories.json';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function shuffle(array) {
   let currentIndex = array.length,
@@ -37,17 +38,11 @@ function randomExamTicketsIds(categorisedTickets, amount) {
   return result;
 }
 
-export const getTickets = (cat, amount) => {
+export const getAllTickets = cat => {
   const catId = categories.find(e => e.categoryName === cat).id;
 
-  const validExamTicketIds = Object.keys(ticketsByCat[catId]);
+  const examTicketIds = Object.keys(ticketsByCat[catId]);
 
-  const examTicketIds =
-    amount === 'all'
-      ? validExamTicketIds
-      : randomExamTicketsIds(validExamTicketIds, amount);
-
-  let start = Date.now();
   let filteredTickets = tickets.filter(t =>
     examTicketIds.includes(t.examTicketId.toString()),
   );
@@ -55,11 +50,38 @@ export const getTickets = (cat, amount) => {
   filteredTickets.forEach(t => {
     t.num = ticketsByCat[catId][t.examTicketId];
   });
-  amount === 'all'
-    ? filteredTickets.sort((a, b) => a.num - b.num)
-    : shuffle(filteredTickets);
+  filteredTickets.sort((a, b) => a.num - b.num);
 
-  let timeTaken = Date.now() - start;
-  console.log('Total time taken : ' + timeTaken + ' milliseconds');
+  return filteredTickets;
+};
+
+export const getAmountTickets = (cat, amount) => {
+  const catId = categories.find(e => e.categoryName === cat).id;
+
+  const validExamTicketIds = Object.keys(ticketsByCat[catId]);
+
+  const examTicketIds = randomExamTicketsIds(validExamTicketIds, amount);
+
+  let filteredTickets = tickets.filter(t =>
+    examTicketIds.includes(t.examTicketId.toString()),
+  );
+
+  filteredTickets.forEach(t => {
+    t.num = ticketsByCat[catId][t.examTicketId];
+  });
+
+  shuffle(filteredTickets);
+
+  return filteredTickets;
+};
+
+export const getFavoriteTickets = favorites => {
+  let filteredTickets = tickets.filter(t => favorites.includes(t.examTicketId));
+
+  for (let index = 0; index < filteredTickets.length; index++) {
+    const ticket = filteredTickets[index];
+    ticket.num = index + 1;
+  }
+
   return filteredTickets;
 };
