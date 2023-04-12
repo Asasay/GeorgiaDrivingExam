@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 import {BackHandler, View} from 'react-native';
-import {styles} from './styles';
+import {styles} from '../styles/styles';
 import React from 'react';
 import {useTheme, Text, Divider} from 'react-native-paper';
 

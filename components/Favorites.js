@@ -1,6 +1,6 @@
 import {IconButton, useTheme} from 'react-native-paper';
 import React from 'react';
-import useAsyncStorage from './useAsyncStorage';
+import useAsyncStorage from './functions/useAsyncStorage';
 
 const Favorites = ({examTicketId}) => {
   const [favorites, setFavorites] = useAsyncStorage('favorites', '[]');

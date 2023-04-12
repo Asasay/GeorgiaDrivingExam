@@ -1,12 +1,12 @@
 import {useEffect, useState, React} from 'react';
 import {View, ScrollView} from 'react-native';
 import {Button, Text, useTheme} from 'react-native-paper';
-import {Answers} from './Answers';
-import Description from './Description';
-import DynamicImage from './DynamicImage';
-import {styles} from './styles';
+import {Answers} from '../Answers';
+import Description from '../Description';
+import DynamicImage from '../DynamicImage';
+import {styles} from '../styles/styles';
 import {GestureDetector, Gesture} from 'react-native-gesture-handler';
-import Favorites from './Favorites';
+import Favorites from '../Favorites';
 
 export function ExamScreen({route, navigation}) {
   const [currentTicket, setCurrentTicket] = useState(0);

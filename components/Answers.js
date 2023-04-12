@@ -1,6 +1,6 @@
 /* eslint-disable eqeqeq */
 import {Pressable, View} from 'react-native';
-import {styles} from './styles';
+import {styles} from './styles/styles';
 import React from 'react';
 import {useTheme, Text} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';

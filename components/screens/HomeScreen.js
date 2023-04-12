@@ -1,12 +1,12 @@
 import React from 'react';
 import {View} from 'react-native';
-import {styles} from './styles';
+import {styles} from '../styles/styles.js';
 import {Button, useTheme, Menu} from 'react-native-paper';
 import {
   getAllTickets,
   getAmountTickets,
   getFavoriteTickets,
-} from './getTickets';
+} from '../functions/getTickets';
 import {useIsFocused} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

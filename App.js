@@ -6,14 +6,14 @@ import {
   Provider as PaperProvider,
   configureFonts,
 } from 'react-native-paper';
-import {HomeScreen} from './components/HomeScreen';
-import {ExamScreen} from './components/ExamScreen';
-import {TicketsScreen} from './components/TicketsScreen';
-import {ResultsScreen} from './components/ResultsScreen';
+import {HomeScreen} from './components/screens/HomeScreen';
+import {ExamScreen} from './components/screens/ExamScreen';
+import {TicketsScreen} from './components/screens/TicketsScreen';
+import {ResultsScreen} from './components/screens/ResultsScreen';
 import {StatusBar, useColorScheme} from 'react-native';
 import * as React from 'react';
 import CustomNavigationBar from './components/CustomNavigationBar';
-import colors from './components/colors.json';
+import colors from './components/styles/colors.json';
 import {gestureHandlerRootHOC} from 'react-native-gesture-handler';
 
 const Stack = createNativeStackNavigator();

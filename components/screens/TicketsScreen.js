@@ -9,12 +9,12 @@ import {
   TextInput,
   useTheme,
 } from 'react-native-paper';
-import {Answers} from './Answers';
-import Description from './Description';
-import DynamicImage from './DynamicImage';
-import {styles} from './styles';
+import {Answers} from '../Answers';
+import Description from '../Description';
+import DynamicImage from '../DynamicImage';
+import {styles} from '../styles/styles.js';
 import {GestureDetector, Gesture} from 'react-native-gesture-handler';
-import Favorites from './Favorites';
+import Favorites from '../Favorites';
 
 export function TicketsScreen({route, navigation}) {
   const tickets = route.params.tickets;

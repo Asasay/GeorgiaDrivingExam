@@ -1,7 +1,6 @@
-import {tickets} from '../assets/tickets.js';
-import ticketsByCat from '../assets/ticketsByCat.json';
-import categories from '../assets/categories.json';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {tickets} from '../../assets/data/tickets.js';
+import ticketsByCat from '../../assets/data/ticketsByCat.json';
+import categories from '../../assets/data/categories.json';
 
 function shuffle(array) {
   let currentIndex = array.length,
