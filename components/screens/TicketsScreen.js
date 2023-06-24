@@ -15,11 +15,13 @@ import DynamicImage from '../DynamicImage';
 import {styles} from '../styles/styles.js';
 import {GestureDetector, Gesture} from 'react-native-gesture-handler';
 import Favorites from '../Favorites';
+import useAsyncStorage from '../functions/useAsyncStorage';
 
 export function TicketsScreen({route, navigation}) {
   const tickets = route.params.tickets;
+  const start = route.params.start;
 
-  const [currentTicket, setCurrentTicket] = useState(0);
+  const [currentTicket, setCurrentTicket] = useState(start);
   const [ansPicked, setAnsPicked] = useState(null);
   let ticket = tickets[currentTicket];
 
@@ -46,6 +48,8 @@ export function TicketsScreen({route, navigation}) {
     );
   };
 
+  const [position, setPosition] = useAsyncStorage('position', 0);
+
   const nextTicket = () => {
     setAnsPicked(null);
     if (currentTicket === tickets.length - 1) {
@@ -67,6 +71,8 @@ export function TicketsScreen({route, navigation}) {
   const theme = useTheme();
 
   useEffect(() => {
+    setPosition(tickets[currentTicket].num-1);
+
     navigation.setOptions({
       headerTitle: '№' + tickets[currentTicket].num,
       right: (

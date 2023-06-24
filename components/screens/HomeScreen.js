@@ -18,9 +18,19 @@ export function HomeScreen({navigation}) {
   const openMenu = () => setVisible(true);
   const closeMenu = () => setVisible(false);
   const theme = useTheme();
+  const [positionText, setPositionText] = React.useState('');
+  const [position, setPosition] = React.useState(0);
 
   React.useEffect(() => {
     // Call only when screen open or when back on screen
+    AsyncStorage.getItem('position')
+        .then(value => {
+          if(value === null) return;
+          let x = JSON.parse(value);
+          setPosition(x);
+          setPositionText('(продолжить с ' + (x+1) + ')');
+        });
+    
     if (isFocused) {
       AsyncStorage.getItem('favorites')
         .then(value => {
@@ -86,9 +96,10 @@ export function HomeScreen({navigation}) {
           onPress={() => {
             navigation.navigate('Все билеты', {
               tickets: getAllTickets(selectedCategory),
+              start: position
             });
           }}>
-          Все билеты
+          Все билеты {positionText}
         </Button>
         <Button
           mode="contained-tonal"
