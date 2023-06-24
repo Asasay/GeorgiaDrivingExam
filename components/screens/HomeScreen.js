@@ -28,7 +28,8 @@ export function HomeScreen({navigation}) {
           if(value === null) return;
           let x = JSON.parse(value);
           setPosition(x);
-          setPositionText('(продолжить с ' + (x+1) + ')');
+          let text = x == 0 ? '' : ' с № ' + (x+1);
+          setPositionText(text);
         });
     
     if (isFocused) {
@@ -96,10 +97,22 @@ export function HomeScreen({navigation}) {
           onPress={() => {
             navigation.navigate('Все билеты', {
               tickets: getAllTickets(selectedCategory),
+              start: 0
+            });
+          }}>
+          Все билеты
+        </Button>
+        <Button
+          style={{marginBottom: 10}}
+          mode="contained-tonal"
+          disabled={position === 0}
+          onPress={() => {
+            navigation.navigate('Все билеты', {
+              tickets: getAllTickets(selectedCategory),
               start: position
             });
           }}>
-          Все билеты {positionText}
+          Продолжить{positionText}
         </Button>
         <Button
           mode="contained-tonal"
