@@ -102,7 +102,7 @@ def getPassword(String currentUser, String keyChain) {
       stdout.toString().trim()
 }
 
-def pass = getPassword("android_keystore","android_keystore")
+def pass = "123" //getPassword("android_keystore","android_keystore")
 
 android {
     ndkVersion rootProject.ext.ndkVersion

@@ -46,6 +46,8 @@ export function HomeScreen({navigation}) {
 
   const pickCatergory = cat => {
     setSelectedCategory(cat);
+    setPosition(0);
+    setPositionText('');
     closeMenu();
   };
 
