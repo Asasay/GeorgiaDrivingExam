@@ -122,6 +122,7 @@ export function HomeScreen({navigation}) {
           onPress={() => {
             navigation.navigate('Избранные', {
               tickets: getFavoriteTickets(favorites),
+              start: 0
             });
           }}>
           Избранные
