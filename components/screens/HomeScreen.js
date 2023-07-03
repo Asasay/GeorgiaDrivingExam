@@ -18,9 +18,20 @@ export function HomeScreen({navigation}) {
   const openMenu = () => setVisible(true);
   const closeMenu = () => setVisible(false);
   const theme = useTheme();
+  const [positionText, setPositionText] = React.useState('');
+  const [position, setPosition] = React.useState(0);
 
   React.useEffect(() => {
     // Call only when screen open or when back on screen
+    AsyncStorage.getItem('position')
+        .then(value => {
+          if(value === null) return;
+          let x = JSON.parse(value);
+          setPosition(x);
+          let text = x == 0 ? '' : ' с № ' + (x+1);
+          setPositionText(text);
+        });
+    
     if (isFocused) {
       AsyncStorage.getItem('favorites')
         .then(value => {
@@ -35,6 +46,8 @@ export function HomeScreen({navigation}) {
 
   const pickCatergory = cat => {
     setSelectedCategory(cat);
+    setPosition(0);
+    setPositionText('');
     closeMenu();
   };
 
@@ -86,9 +99,24 @@ export function HomeScreen({navigation}) {
           onPress={() => {
             navigation.navigate('Все билеты', {
               tickets: getAllTickets(selectedCategory),
+              start: 0,
+              updatePosition: true
             });
           }}>
           Все билеты
+        </Button>
+        <Button
+          style={{marginBottom: 10}}
+          mode="contained-tonal"
+          disabled={position === 0}
+          onPress={() => {
+            navigation.navigate('Все билеты', {
+              tickets: getAllTickets(selectedCategory),
+              start: position,
+              updatePosition: true
+            });
+          }}>
+          Продолжить{positionText}
         </Button>
         <Button
           mode="contained-tonal"
@@ -96,6 +124,8 @@ export function HomeScreen({navigation}) {
           onPress={() => {
             navigation.navigate('Избранные', {
               tickets: getFavoriteTickets(favorites),
+              start: 0,
+              updatePosition: false
             });
           }}>
           Избранные
