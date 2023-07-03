@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import {styles} from '../styles/styles.js';
-import {Button, useTheme, Menu} from 'react-native-paper';
+import {Button, useTheme, Menu, Divider} from 'react-native-paper';
 import {
   getAllTickets,
   getAmountTickets,
@@ -23,15 +23,16 @@ export function HomeScreen({navigation}) {
 
   React.useEffect(() => {
     // Call only when screen open or when back on screen
-    AsyncStorage.getItem('position')
-        .then(value => {
-          if(value === null) return;
-          let x = JSON.parse(value);
-          setPosition(x);
-          let text = x == 0 ? '' : ' с № ' + (x+1);
-          setPositionText(text);
-        });
-    
+    AsyncStorage.getItem('position').then(value => {
+      if (value === null) {
+        return;
+      }
+      let x = JSON.parse(value);
+      setPosition(x);
+      let text = x == 0 ? '' : ' с № ' + (x + 1);
+      setPositionText(text);
+    });
+
     if (isFocused) {
       AsyncStorage.getItem('favorites')
         .then(value => {
@@ -93,6 +94,7 @@ export function HomeScreen({navigation}) {
           }}>
           Начать экзамен
         </Button>
+        <Divider style={{marginBottom: 10}} horizontalInset />
         <Button
           style={{marginBottom: 10}}
           mode="contained-tonal"
@@ -100,7 +102,7 @@ export function HomeScreen({navigation}) {
             navigation.navigate('Все билеты', {
               tickets: getAllTickets(selectedCategory),
               start: 0,
-              updatePosition: true
+              updatePosition: true,
             });
           }}>
           Все билеты
@@ -113,11 +115,12 @@ export function HomeScreen({navigation}) {
             navigation.navigate('Все билеты', {
               tickets: getAllTickets(selectedCategory),
               start: position,
-              updatePosition: true
+              updatePosition: true,
             });
           }}>
           Продолжить{positionText}
         </Button>
+        <Divider style={{marginBottom: 10}} horizontalInset />
         <Button
           mode="contained-tonal"
           disabled={favorites.length === 0}
@@ -125,7 +128,7 @@ export function HomeScreen({navigation}) {
             navigation.navigate('Избранные', {
               tickets: getFavoriteTickets(favorites),
               start: 0,
-              updatePosition: false
+              updatePosition: false,
             });
           }}>
           Избранные

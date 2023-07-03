@@ -49,7 +49,9 @@ export function TicketsScreen({route, navigation}) {
     );
   };
 
-  const [position, setPosition] = updatePosition ? useAsyncStorage('position', 0) : [0, (_) => {}];
+  const [position, setPosition] = updatePosition
+    ? useAsyncStorage('position', 0)
+    : [0, _ => {}];
 
   const nextTicket = () => {
     setAnsPicked(null);
@@ -72,7 +74,7 @@ export function TicketsScreen({route, navigation}) {
   const theme = useTheme();
 
   useEffect(() => {
-    setPosition(tickets[currentTicket].num-1);
+    setPosition(tickets[currentTicket].num - 1);
 
     navigation.setOptions({
       headerTitle: '№' + tickets[currentTicket].num,
