@@ -20,6 +20,7 @@ import useAsyncStorage from '../functions/useAsyncStorage';
 export function TicketsScreen({route, navigation}) {
   const tickets = route.params.tickets;
   const start = route.params.start;
+  const updatePosition = route.params.updatePosition;
 
   const [currentTicket, setCurrentTicket] = useState(start);
   const [ansPicked, setAnsPicked] = useState(null);
@@ -48,7 +49,7 @@ export function TicketsScreen({route, navigation}) {
     );
   };
 
-  const [position, setPosition] = useAsyncStorage('position', 0);
+  const [position, setPosition] = updatePosition ? useAsyncStorage('position', 0) : [0, (_) => {}];
 
   const nextTicket = () => {
     setAnsPicked(null);

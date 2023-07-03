@@ -99,7 +99,8 @@ export function HomeScreen({navigation}) {
           onPress={() => {
             navigation.navigate('Все билеты', {
               tickets: getAllTickets(selectedCategory),
-              start: 0
+              start: 0,
+              updatePosition: true
             });
           }}>
           Все билеты
@@ -111,7 +112,8 @@ export function HomeScreen({navigation}) {
           onPress={() => {
             navigation.navigate('Все билеты', {
               tickets: getAllTickets(selectedCategory),
-              start: position
+              start: position,
+              updatePosition: true
             });
           }}>
           Продолжить{positionText}
@@ -122,7 +124,8 @@ export function HomeScreen({navigation}) {
           onPress={() => {
             navigation.navigate('Избранные', {
               tickets: getFavoriteTickets(favorites),
-              start: 0
+              start: 0,
+              updatePosition: false
             });
           }}>
           Избранные
